@@ -19,3 +19,4 @@ for (let i = 1; i <= 5; i++) {
     console.log(`Sending request ${i} for ${filename}`)
     requester.send(JSON.stringify({ path: filename }))
 }
+

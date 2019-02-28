@@ -34,3 +34,8 @@ process.on('SIGINT', () => {
     console.log('Shutting down...')
     responder.close()
 })
+
+//NOTES
+/*
+-REQ/REP pattern (request/reply) responds in lockstep (a request comes in, a reply goes out) though the app is only aware of one request at a time
+*/

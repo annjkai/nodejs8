@@ -17,3 +17,9 @@ subscriber.on('message', data => {
 
 //connect to publisher
 subscriber.connect("tcp://localhost:60500")
+
+//NOTES
+/*
+-`subscribe()` must be called at some point or no messages will be received
+-in designing networked applications, it's usual to have the more permanent architecture bind while the more transient architecture connects. 0MQ however is very flexible
+*/

@@ -17,3 +17,4 @@ requester.connect('tcp://localhost:60401')
 //send request for content
     console.log(`Sending request for ${filename}`)
     requester.send(JSON.stringify({ path: filename }))
+
