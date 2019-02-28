@@ -11,3 +11,9 @@ fs.watch(filename, () => {
     ls.stdout.pipe(process.stdout)    
 })
 console.log(`Now watching ${filename} for changes...`)
+
+//NOTES
+/*
+-'child_process': nodejs.org/api/child_process.html
+-'spawn()' the name of the program to execute + an array of command-line args, returns a ChildProcess
+*/
