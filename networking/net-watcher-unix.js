@@ -23,3 +23,8 @@ net.createServer(connection => {
         watcher.close()
     })
 }).listen('/tmp/watcher.sock', () => console.log('Listening for subscribers...'))
+
+//NOTES
+/*
+-Unix sockets can be faster than TCP sockets because they don't require invoking network hardware
+*/

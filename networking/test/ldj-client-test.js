@@ -22,3 +22,8 @@ describe('LDJClient', () => {
         process.nextTick(() => stream.emit('data', '"bar"}\n'))
     })
 })
+
+//NOTES
+/*
+-unit testing with Mocha
+*/

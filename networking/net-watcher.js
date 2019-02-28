@@ -23,3 +23,13 @@ net.createServer(connection => {
         watcher.close()
     })
 }).listen('60300', () => console.log('Listening for subscribers...'))
+
+//NOTES
+/*
+-TCPsocckets connections have two endpoints, one binds to a numbered port, the other connects to a port
+-third index in argv is the file to watch; if user fails to specify a file, an error will be thrown (uncaught errors cause Node.js to halt)
+-`createServer()` does 3 things:
+    -reports that connection has been established
+    -listens for changes to target file
+    listens for connection's close event
+*/

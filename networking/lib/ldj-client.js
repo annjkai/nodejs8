@@ -24,3 +24,10 @@ class LDJClient extends EventEmitter {
 }
 
 module.exports = LDJClient
+
+//NOTES
+/*
+-`super()` invokes the EventEmitter's own constructor function (best practice: when implementing a class that extends another class, call `super()` first)
+-JS uses prototypal inheritance to establish the relationship between LDJClient and EventEmitter
+-`stream.on()` handles data events
+*/
