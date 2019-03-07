@@ -14,5 +14,9 @@ module.exports = rdf => {
     book.subjects = $('[rdf\\:resource$="/LCSH"]')
         .parent().find('rdf\\:value')
         .toArray().map(elem => $(elem).text())
+    //wrapping up tasks
+    //book.llc = $('[rdf\\:resource$="/LLC]')
+    //    .parent().find('rdf\\:value')
+    
     return book
 }

@@ -25,6 +25,10 @@ describe('parseRDF', () => {
             .that.is.an('array').with.lengthOf(2)
             .and.contains('Military art and science -- Early works to 1800')
             .and.contains('War -- Early works to 1800')
+        
+        //wrapping up tasks
+        //expect(book).to.have.a.property('LLC')
+        //   .that.is.a('string').with.lengthOf(1)
     })
 })
 
