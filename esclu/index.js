@@ -27,7 +27,20 @@ program
     .option('--t, --type <type>', 'default type for bulk operations')
     .command('url [path]')
     .description('perform an HTTP GET request for path (default is /)')
-    .action((path = '/') => console.log(fullUrl(path)))
+    .action((path = '/') => {
+        const options = {
+            url: fullUrl(path),
+            json: program.json
+        }
+        request(options, (err, res, body) => {
+            if (program.json) {
+                console.log(JSON.stringify(err || body))
+            } else {
+                if (err) throw err
+                console.log(body)
+            }
+        })
+    })
 
 program.parse(process.argv)
 
