@@ -3,6 +3,7 @@
 'use strict'
 
 const request = require('request')
+const rp = require('request-promise')
 
 module.exports = (app, es) => {
     const url = `http://${es.host}:${es.port}/${es.books_index}/book/_search`
@@ -75,8 +76,13 @@ module.exports = (app, es) => {
                 resolve(esResBody)
             })
         }) 
+        rp({url, json: true, body: esReqBody})
+            .then(esResBody =>(200).json(esResBody.suggest.suggestions))
+            .catch(({error}) => res.status(error.status || 502).json(error))
+        /*
         promise
         .then(esResBody => res.status(200).json(esResBody.suggest.suggestions))
         .catch(({error}) => res.status(error.status || 502).json(error))
+        */
     })
 }
