@@ -62,23 +62,37 @@ module.exports = (app, es) => {
                 }
             }
         }
-        const options = {url, json: true, body: esReqBody}
+        const options = {
+            url,
+            json: true,
+            body: esReqBody
+        }
         const promise = new Promise((resolve, reject) => {
             request.get(options, (err, esRes, esResBody) => {
                 if (err) {
-                    reject({error: err})
+                    reject({
+                        error: err
+                    })
                     return
                 }
                 if (esRes.statusCode !== 200) {
-                    reject({error: esResBody})
+                    reject({
+                        error: esResBody
+                    })
                     return
                 }
                 resolve(esResBody)
             })
-        }) 
-        rp({url, json: true, body: esReqBody})
-            .then(esResBody =>(200).json(esResBody.suggest.suggestions))
-            .catch(({error}) => res.status(error.status || 502).json(error))
+        })
+        rp({
+                url,
+                json: true,
+                body: esReqBody
+            })
+            .then(esResBody => (200).json(esResBody.suggest.suggestions))
+            .catch(({
+                error
+            }) => res.status(error.status || 502).json(error))
         /*
         promise
         .then(esResBody => res.status(200).json(esResBody.suggest.suggestions))
