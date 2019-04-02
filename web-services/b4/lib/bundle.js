@@ -1,9 +1,11 @@
 //provides API endpoints for book bundles
+
 'use strict'
 
 const rp = require('request-promise')
 
 module.exports = (app, es) => {
+    /*
     const url = `http://${es.host}:${es.port}/${es.bundles_index}/bundle`
     app.post('/api/bundle', (req, res) => {
         const bundle = {
@@ -30,4 +32,5 @@ module.exports = (app, es) => {
             res.status(esResErr.statusCode || 502).json(esResErr.error)
         }
     })
+*/    
 }
