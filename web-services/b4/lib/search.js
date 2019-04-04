@@ -77,11 +77,16 @@ module.exports = (app, es) => {
                 resolve(esResBody)
             })
         })
+        
         promise
             .then(esResBody => res.status(200).json(esResBody.suggest.suggestions))
             .catch(({
                 error
             }) => res.status(error.status || 502).json(error))
+        /*
+        rp({url, json: true, body: esReqBody})
+            .then(esResBody => res.status(200).json(esResBody.suggest.suggestions))
+            .catch(({error}) => res.status(error.status || 502).json(error))*/
     })
 
 }
