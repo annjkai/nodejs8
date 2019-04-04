@@ -24,6 +24,7 @@ module.exports = (app, es) => {
             }) => res.status(error.status || 502).json(error))
     })
 
+    /*
     app.get('/api/bundle/:id', async (req, res) => {
         const options = {
             url: `${url}/${req.params.id}`,
@@ -33,7 +34,7 @@ module.exports = (app, es) => {
         res.status(200).json(esResBody)
     })
 
-
+*/
 
 
 
