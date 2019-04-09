@@ -33,22 +33,23 @@ module.exports = (app, es) => {
         const esResBody = await rp(options)
         res.status(200).json(esResBody)
     })
-
 */
 
 
 
-    /*
-        app.get('/api/bundle/:id', async (req, res) => {
-            const options = {
-                url: `${url}/${req.params.id}`,
-                json: true,
-            } try {
-                const esResBody = await rp(options)
-                res.status(200).json(esResBody)
-            } catch (esResErr) {
-                res.status(esResErr.statusCode || 502).json(esResErr.error)
-            }
-        })
-    */
+
+
+    app.get('/api/bundle/:id', async (req, res) => {
+        const options = {
+            url: `${url}/${req.params.id}`,
+            json: true,
+        }
+        try {
+            const esResBody = await rp(options)
+            res.status(200).json(esResBody)
+        } catch (esResErr) {
+            res.status(esResErr.statusCode || 502).json(esResErr.error)
+        }
+    })
+
 }
