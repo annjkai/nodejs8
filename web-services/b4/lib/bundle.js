@@ -24,6 +24,7 @@ module.exports = (app, es) => {
             }) => res.status(error.status || 502).json(error))
     })
 
+    //BAD IMPLEMENTATION
     /*
     app.get('/api/bundle/:id', async (req, res) => {
         const options = {
@@ -34,10 +35,6 @@ module.exports = (app, es) => {
         res.status(200).json(esResBody)
     })
 */
-
-
-
-
 
     app.get('/api/bundle/:id', async (req, res) => {
         const options = {
@@ -52,4 +49,98 @@ module.exports = (app, es) => {
         }
     })
 
+    app.put('/api/bundle/:id/name/:name', async (req, res) => {
+        const bundleUrl = `${url}/${req.params.id}`
+
+        try {
+            const bundle = (await rp({
+                url: bundleUrl,
+                json: true
+            }))._source
+            bundle.name = req.params.name
+            const esResBody = await rp.put({
+                url: bundleUrl,
+                body: bundle,
+                json: true
+            })
+            res.status(200).json(esResBody)
+        } catch (esResErr) {
+            res.status(esResErr.statusCode || 502).json(esResErr.error)
+        }
+    })
+
+    app.put('/api/bundle/:id/book/:pgid', async (req, res) => {
+        const bundleUrl = `${url}/${req.params.id}`
+        const bookUrl = `http://${es.host}:${es.port}` + `/${es.books_index}/book/${req.params.pgid}`
+
+        try {
+            const [bundleRes, bookRes] = await Promise.all([
+                rp({
+                    url: bundleUrl,
+                    json: true
+                }),
+                rp({
+                    url: bookUrl,
+                    json: true
+                }),
+            ])
+            const {
+                _source: bundle,
+                _version: version
+            } = bundleRes
+            const {
+                _source: book
+            } = bookRes
+
+            const idx = bundle.books.findIndex(book => book.id === req.params.pgid)
+            if (idx === -1) {
+                bundle.books.push({
+                    id: req.params.pgid,
+                    title: book.title,
+                })
+            }
+            const esResBody = await rp.put({
+                url: bundleUrl,
+                qs: {
+                    version
+                },
+                body: bundle,
+                json: true,
+            })
+            res.status(200).json(esResBody)
+        } catch (esResErr) {
+            res.status(esResErr.statusCode || 502).json(esResErr.error)
+        }
+    })
+
+    //WRAPPING UP: Delete bundle
+    app.delete('/api/bundle/:id', async (req, res) => {
+        const bundleUrl = `${url}/${req.params.id}`
+
+        try {
+            const bundle = (await rp({
+                url: bundleUrl,
+                json: true
+            }))._source
+            bundle.name = req.params.name
+            const esResBody = await rp.delete({
+                url: bundleUrl,
+                body: bundle,
+                json: true
+            })
+            res.status(200).json(esResBody)
+        } catch (esResErr) {
+            res.status(esResErr.statusCode || 502).json(esResErr.error)
+        }
+    })
+    //WRAPPING UP: Delete book from bundle
+    app.delete('/api/bundle/:id/book/:pgid', async (req, res) => {
+        const bundleUrl = `${url}/${req.params.id}`
+
+        try {
+
+        } catch (esResErr) {
+            res.status(esResErr.statusCode || 502).json(esResErr.error)
+        }
+    })
 }
