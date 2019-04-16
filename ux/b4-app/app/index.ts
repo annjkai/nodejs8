@@ -17,11 +17,19 @@ const getBundles = async () => {
     }))
 }
 
+const listBundles = bundles => {
+    mainElement.innerHTML = templates.listBundles({bundles})
+}
+
 const showView = async () => {
     const [view, ...params] = window.location.hash.split('/')
     switch (view) {
         case '#welcome':
             mainElement.innerHTML = templates.welcome()
+            break
+        case '#list-bundles':
+            const bundles = await getBundles()
+            listBundles(bundles)
             break
         default:
             //Unrecognized view
